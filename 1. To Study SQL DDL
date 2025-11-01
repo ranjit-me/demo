@@ -1,0 +1,72 @@
+✅ Practical No. 1 — To Study SQL DDL
+📌 Objective
+
+To study and execute SQL DDL (Data Definition Language) commands.
+
+🧠 What is DDL?
+
+DDL stands for Data Definition Language.
+These commands are used to create, modify, and delete database structures like tables, schemas, indexes.
+
+✅ DDL Commands List
+Command	Purpose
+CREATE	Create database objects (table, database, view, index)
+ALTER	Modify existing database objects
+DROP	Delete database objects
+TRUNCATE	Remove all records from a table (faster than DELETE)
+RENAME	Rename table/objects
+🧾 Examples
+
+1️⃣ CREATE TABLE
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    course VARCHAR(30),
+    marks INT
+);
+
+2️⃣ ALTER TABLE
+
+Add a new column
+
+ALTER TABLE students
+ADD email VARCHAR(50);
+
+
+Modify data type
+
+ALTER TABLE students
+MODIFY marks FLOAT;
+
+Drop a column
+
+ALTER TABLE students
+DROP COLUMN email;
+
+3️⃣ RENAME TABLE
+RENAME TABLE students TO student_info;
+
+4️⃣ TRUNCATE TABLE
+
+(Removes all rows but keeps structure)
+
+TRUNCATE TABLE student_info;
+
+5️⃣ DROP TABLE
+
+(Delete table permanently)
+
+DROP TABLE student_info;
+
+📎 Expected Output Format (for Practical file)
+Table created.
+
+Query OK, 0 rows affected.
+
+Table altered.
+
+Table renamed.
+
+Table truncated.
+
+Table dropped.
