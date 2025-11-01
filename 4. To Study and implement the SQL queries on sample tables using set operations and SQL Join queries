@@ -1,0 +1,104 @@
+✅ Sample Database Setup
+
+We will use two tables: Students and Results
+
+Students Table
+RollNo	Name	Department
+1	Rohan	CS
+2	Sneha	IT
+3	Aman	CS
+4	Priya	Mech
+5	Rahul	Civil
+Results Table
+RollNo	Subject	Marks
+1	DBMS	85
+2	DBMS	92
+3	DBMS	74
+6	DBMS	80
+✅ Create Tables and Insert Data
+-- Creating Students Table
+CREATE TABLE Students (
+    RollNo INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Department VARCHAR(20)
+);
+
+INSERT INTO Students VALUES 
+(1, 'Rohan', 'CS'),
+(2, 'Sneha', 'IT'),
+(3, 'Aman', 'CS'),
+(4, 'Priya', 'Mech'),
+(5, 'Rahul', 'Civil');
+
+-- Creating Results Table
+CREATE TABLE Results (
+    RollNo INT,
+    Subject VARCHAR(50),
+    Marks INT
+);
+
+INSERT INTO Results VALUES
+(1, 'DBMS', 85),
+(2, 'DBMS', 92),
+(3, 'DBMS', 74),
+(6, 'DBMS', 80);
+
+✅ SQL JOIN Queries
+1. INNER JOIN
+
+Returns only matching rows
+
+SELECT Students.RollNo, Name, Department, Marks
+FROM Students
+INNER JOIN Results ON Students.RollNo = Results.RollNo;
+
+2. LEFT JOIN
+
+Returns all students even if they don’t have results
+
+SELECT Students.RollNo, Name, Department, Marks
+FROM Students
+LEFT JOIN Results ON Students.RollNo = Results.RollNo;
+
+3. RIGHT JOIN
+
+Returns all results even if student info is missing
+
+SELECT Students.RollNo, Name, Department, Marks
+FROM Students
+RIGHT JOIN Results ON Students.RollNo = Results.RollNo;
+
+4. FULL OUTER JOIN (if supported)
+SELECT Students.RollNo, Name, Department, Marks
+FROM Students
+FULL OUTER JOIN Results ON Students.RollNo = Results.RollNo;
+
+✅ SET OPERATION Queries
+1. UNION
+
+Returns unique roll numbers from both tables
+
+SELECT RollNo FROM Students
+UNION
+SELECT RollNo FROM Results;
+
+2. UNION ALL
+
+Returns all rows including duplicates
+
+SELECT RollNo FROM Students
+UNION ALL
+SELECT RollNo FROM Results;
+
+3. INTERSECT (Common Roll numbers)
+SELECT RollNo FROM Students
+INTERSECT
+SELECT RollNo FROM Results;
+
+4. EXCEPT / MINUS
+
+Students who do not have result entries
+
+SELECT RollNo FROM Students
+EXCEPT
+SELECT RollNo FROM Results;
