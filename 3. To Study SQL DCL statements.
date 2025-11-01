@@ -1,0 +1,52 @@
+✅ Practical No. 3 — To Study SQL DCL Statements
+📌 Objective
+
+To study and execute SQL DCL (Data Control Language) commands.
+
+🧠 What is DCL?
+
+DCL stands for Data Control Language.
+These commands are used to control access and permissions on the database.
+
+✅ DCL Commands List
+Command	Purpose
+GRANT	Give privileges to users
+REVOKE	Remove privileges from users
+
+Note: Some databases also consider DENY but mainly GRANT & REVOKE are used in SQL.
+
+✅ Example Scenario
+
+Create a user and give database permissions.
+(Run as admin user like root/system)
+
+1️⃣ Create User
+CREATE USER testuser IDENTIFIED BY test123;
+
+2️⃣ GRANT Privileges
+
+Give permission to access and modify a table:
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO 'testuser';
+
+
+Grant all privileges:
+
+GRANT ALL PRIVILEGES ON *.* TO 'testuser';
+
+3️⃣ Verify Privileges
+
+Login as testuser and execute:
+
+SHOW GRANTS;
+
+4️⃣ REVOKE Privileges
+
+Remove update and delete rights:
+
+REVOKE UPDATE, DELETE ON *.* FROM 'testuser';
+
+
+Revoke all:
+
+REVOKE ALL PRIVILEGES ON *.* FROM 'testuser';
