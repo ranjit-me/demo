@@ -10,3 +10,42 @@ JRE_HOME  = C:\Program Files\Java\jre1.8.0_202\bin ✅ (correct)
 PowerShell -> Set-ExecutionPolicy Unrestricted -Scope CurrentUser
 
 
+CREATE KEYSPACE college
+WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+
+USE college;
+
+CREATE TABLE students (
+    rollno int PRIMARY KEY,
+    name text,
+    branch text,
+    marks int
+);
+
+INSERT INTO students (rollno, name, branch, marks)
+VALUES (1, 'Ranjit', 'CSE', 90);
+
+INSERT INTO students (rollno, name, branch, marks)
+VALUES (2, 'Nikita', 'IT', 88);
+
+INSERT INTO students (rollno, name, branch, marks)
+VALUES (3, 'Amit', 'ECE', 85);
+
+SELECT * FROM students;
+
+SELECT name, marks FROM students;
+
+SELECT * FROM students WHERE rollno = 1;
+
+UPDATE students
+SET marks = 95
+WHERE rollno = 1;
+
+DELETE FROM students WHERE rollno = 2;
+
+DELETE marks FROM students WHERE rollno = 3;
+
+
+DROP TABLE students;
+
+DROP KEYSPACE college;
