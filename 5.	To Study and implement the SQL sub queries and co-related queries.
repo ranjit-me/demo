@@ -1,0 +1,120 @@
+✅ What is a Subquery?
+
+A Subquery (or nested query) is a query inside another query.
+
+Used for:
+
+Filtering data
+
+Comparison
+
+Fetching data for calculations
+
+Used with IN, EXISTS, ANY, ALL
+
+Syntax:
+SELECT column
+FROM table
+WHERE column OPERATOR (SELECT column FROM table);
+
+✅ Sample Tables
+Employees Table
+EmpID	Name	Dept	Salary
+1	Raj	IT	50000
+2	Sneha	HR	40000
+3	Aman	IT	60000
+4	Priya	Sales	45000
+5	Rahul	IT	55000
+Departments Table
+Dept	Location
+IT	Pune
+HR	Mumbai
+Sales	Delhi
+✅ Create Tables and Insert Data
+CREATE TABLE Employees (
+    EmpID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Dept VARCHAR(10),
+    Salary INT
+);
+
+INSERT INTO Employees VALUES
+(1, 'Raj', 'IT', 50000),
+(2, 'Sneha', 'HR', 40000),
+(3, 'Aman', 'IT', 60000),
+(4, 'Priya', 'Sales', 45000),
+(5, 'Rahul', 'IT', 55000);
+
+CREATE TABLE Departments (
+    Dept VARCHAR(10),
+    Location VARCHAR(50)
+);
+
+INSERT INTO Departments VALUES
+('IT', 'Pune'),
+('HR', 'Mumbai'),
+('Sales', 'Delhi');
+
+✅ Simple Subquery Examples
+1️⃣ Employees earning more than average salary
+SELECT Name, Salary
+FROM Employees
+WHERE Salary > (SELECT AVG(Salary) FROM Employees);
+
+2️⃣ Employees who work in departments located in Pune
+SELECT Name, Dept
+FROM Employees
+WHERE Dept IN (SELECT Dept FROM Departments WHERE Location = 'Pune');
+
+3️⃣ Highest Salary Employee
+SELECT Name, Salary
+FROM Employees
+WHERE Salary = (SELECT MAX(Salary) FROM Employees);
+
+4️⃣ Second Highest Salary
+SELECT Name, Salary
+FROM Employees
+WHERE Salary = (
+    SELECT MAX(Salary) 
+    FROM Employees 
+    WHERE Salary < (SELECT MAX(Salary) FROM Employees)
+);
+
+✅ Correlated Subquery
+
+A correlated subquery depends on the outer query.
+Runs row-by-row and uses values from outer table.
+
+Syntax
+SELECT column
+FROM table1 t1
+WHERE EXISTS (SELECT *
+              FROM table2 t2
+              WHERE condition using t1);
+
+Example 1️⃣: Employees earning more than average salary of their department
+SELECT e1.Name, e1.Dept, e1.Salary
+FROM Employees e1
+WHERE e1.Salary > (
+    SELECT AVG(e2.Salary)
+    FROM Employees e2
+    WHERE e1.Dept = e2.Dept
+);
+
+Example 2️⃣: List employees whose salary is highest in their department
+SELECT e1.Name, e1.Dept, e1.Salary
+FROM Employees e1
+WHERE e1.Salary = (
+    SELECT MAX(e2.Salary)
+    FROM Employees e2
+    WHERE e1.Dept = e2.Dept
+);
+
+Example 3️⃣: Using EXISTS
+SELECT Name, Dept
+FROM Employees e
+WHERE EXISTS (
+    SELECT 1
+    FROM Departments d
+    WHERE e.Dept = d.Dept
+);
