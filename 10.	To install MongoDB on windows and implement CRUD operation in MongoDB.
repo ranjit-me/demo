@@ -1,0 +1,46 @@
+use college
+
+db
+
+db.createCollection("students")
+
+db.students.insertOne({
+  roll_no: 1,
+  name: "Ranjit",
+  course: "B.Tech",
+  marks: 85
+})
+
+db.students.insertMany([
+  { roll_no: 2, name: "Nikita", course: "B.Tech", marks: 92 },
+  { roll_no: 3, name: "Amit", course: "BCA", marks: 75 }
+])
+
+db.students.find()
+
+db.students.find().pretty()
+
+db.students.find({ roll_no: 1 })
+
+db.students.find({ marks: { $gt: 80 } })
+
+db.students.updateOne(
+  { roll_no: 1 },
+  { $set: { marks: 90 } }
+)
+
+db.students.updateMany(
+  { course: "B.Tech" },
+  { $set: { department: "Engineering" } }
+)
+
+db.students.deleteOne({ roll_no: 3 })
+
+db.students.deleteMany({ course: "BCA" })
+
+db.students.drop()
+
+show dbs
+
+show collections
+
