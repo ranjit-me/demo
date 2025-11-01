@@ -9,6 +9,9 @@ JRE_HOME  = C:\Program Files\Java\jre1.8.0_202\bin ✅ (correct)
 
 PowerShell -> Set-ExecutionPolicy Unrestricted -Scope CurrentUser
 
+cassandra -f
+
+cqlsh
 
 CREATE KEYSPACE college
 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
