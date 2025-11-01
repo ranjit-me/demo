@@ -1,0 +1,113 @@
+✅ 1. Implicit Cursor Example
+
+Oracle automatically creates an implicit cursor for INSERT / UPDATE / DELETE / SELECT INTO
+
+Program
+DECLARE
+  v_empid number := 101;
+  v_name varchar2(50);
+BEGIN
+  SELECT first_name INTO v_name 
+  FROM employees 
+  WHERE employee_id = v_empid;
+
+  DBMS_OUTPUT.PUT_LINE('Employee Name: ' || v_name);
+END;
+/
+
+Output
+Employee Name: Neena
+
+✅ 2. Explicit Cursor Example
+
+Manually declared cursor to fetch multiple rows.
+
+Program
+DECLARE
+  CURSOR c_emp IS SELECT employee_id, first_name FROM employees WHERE department_id = 60;
+  v_id employees.employee_id%TYPE;
+  v_name employees.first_name%TYPE;
+BEGIN
+  OPEN c_emp;
+  LOOP
+    FETCH c_emp INTO v_id, v_name;
+    EXIT WHEN c_emp%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE('ID: '||v_id||' Name: '||v_name);
+  END LOOP;
+  CLOSE c_emp;
+END;
+/
+
+Output
+ID: 103 Name: Alexander
+ID: 104 Name: Bruce
+ID: 105 Name: David
+
+✅ 3. Cursor With Parameters
+
+Cursor accepts arguments.
+
+Program
+DECLARE
+  CURSOR c_dept(p_dept_id NUMBER) 
+  IS SELECT first_name FROM employees WHERE department_id = p_dept_id;
+
+  v_name employees.first_name%TYPE;
+BEGIN
+  OPEN c_dept(60);
+  LOOP
+    FETCH c_dept INTO v_name;
+    EXIT WHEN c_dept%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE('Employee: ' || v_name);
+  END LOOP;
+  CLOSE c_dept;
+END;
+/
+
+Output
+Employee: Alexander
+Employee: Bruce
+Employee: David
+
+✅ 4. Cursor FOR Loop
+
+Simplest way — Oracle handles open/fetch/close automatically
+
+Program
+BEGIN
+  FOR emp_rec IN (SELECT employee_id, first_name FROM employees WHERE department_id=60)
+  LOOP
+    DBMS_OUTPUT.PUT_LINE('ID: '||emp_rec.employee_id||' Name: '||emp_rec.first_name);
+  END LOOP;
+END;
+/
+
+Output
+ID: 103 Name: Alexander
+ID: 104 Name: Bruce
+ID: 105 Name: David
+
+✅ 5. Cursor With UPDATE
+
+Updating rows using cursor FOR UPDATE
+
+Program
+DECLARE
+  CURSOR c_sal IS 
+    SELECT employee_id, salary FROM employees WHERE department_id = 60 FOR UPDATE;
+
+BEGIN
+  FOR emp IN c_sal LOOP
+    UPDATE employees
+    SET salary = salary + 500
+    WHERE CURRENT OF c_sal;
+
+    DBMS_OUTPUT.PUT_LINE('Updated Salary for EMP ID: '||emp.employee_id);
+  END LOOP;
+END;
+/
+
+Output
+Updated Salary for EMP ID: 103
+Updated Salary for EMP ID: 104
+Updated Salary for EMP ID: 105
