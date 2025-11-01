@@ -1,0 +1,69 @@
+✅ Practical No. 2 — To Study SQL DML Statements
+📌 Objective
+
+To study and execute SQL DML (Data Manipulation Language) commands.
+
+🧠 What is DML?
+
+DML stands for Data Manipulation Language.
+These commands are used to insert, update, delete, and retrieve data stored in tables.
+
+✅ DML Commands List
+Command	Purpose
+INSERT	Add data into table
+UPDATE	Modify existing records
+DELETE	Remove records
+SELECT	Retrieve data from table
+✅ Example Table
+
+Before performing DML operations, create a sample table:
+
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    course VARCHAR(30),
+    marks INT
+);
+
+✅ DML Commands with Examples
+1️⃣ INSERT — Add Records
+
+Insert single row:
+
+INSERT INTO students (id, name, course, marks)
+VALUES (1, 'Ranjit', 'B.Tech', 85);
+
+
+Insert multiple rows:
+
+INSERT INTO students VALUES
+(2, 'Nikita', 'BCA', 90),
+(3, 'Amit', 'BBA', 75);
+
+2️⃣ SELECT — Retrieve Data
+
+Select all records:
+
+SELECT * FROM students;
+
+
+Select specific columns:
+
+SELECT name, marks FROM students;
+
+3️⃣ UPDATE — Modify Data
+UPDATE students
+SET marks = 95
+WHERE id = 2;
+
+4️⃣ DELETE — Remove Records
+
+Delete specific record:
+
+DELETE FROM students
+WHERE id = 3;
+
+
+Delete all records (not table):
+
+DELETE FROM students;
